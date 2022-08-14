@@ -17,37 +17,50 @@ let time = `${hours}:${minutes}`;
 let currentDayAndTime = document.querySelector("#weekday-and-time");
 currentDayAndTime.innerHTML = `${weekday} ${time}`;
 
-// Current Weather after search
+// API Key + Display Weather Info
+
 let apiKey = "814decb5bc7db2bf90165d67925d435d";
+
+function provideWeather(response) {
+  let searchedCity = response.data.name;
+  let cityName = document.querySelector("#city-name");
+  cityName.innerHTML = searchedCity;
+
+  let temperature = Math.round(response.data.main.temp);
+  let currentTemperature = document.querySelector("#current-temperature");
+  currentTemperature.innerHTML = temperature;
+
+  let apiWeatherDescription = response.data.weather[0].description;
+  let currentWeatherDescription = document.querySelector(
+    "#current-weather-description"
+  );
+  currentWeatherDescription.innerHTML = apiWeatherDescription;
+
+  let apiHumidity = response.data.main.humidity;
+  let currentHumidity = document.querySelector("#humidity");
+  currentHumidity.innerHTML = apiHumidity;
+
+  let apiWind = Math.round(response.data.wind.speed * 3.6);
+  let currentWind = document.querySelector("#wind");
+  currentWind.innerHTML = apiWind;
+}
+
+// Current Weather in Frankfurt (Default)
+
+function displayFrankfurtWeather() {
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=&Frankfurt&units=metric&appid=${apiKey}`;
+  axios.get(apiURL).then(provideWeather);
+}
+
+displayFrankfurtWeather();
+
+// Current Weather after search
 
 function searchCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input").value;
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=${apiKey}`;
 
-  function provideWeather(response) {
-    let searchedCity = response.data.name;
-    let cityName = document.querySelector("#city-name");
-    cityName.innerHTML = searchedCity;
-
-    let temperature = Math.round(response.data.main.temp);
-    let currentTemperature = document.querySelector("#current-temperature");
-    currentTemperature.innerHTML = temperature;
-
-    let apiWeatherDescription = response.data.weather[0].description;
-    let currentWeatherDescription = document.querySelector(
-      "#current-weather-description"
-    );
-    currentWeatherDescription.innerHTML = apiWeatherDescription;
-
-    let apiHumidity = response.data.main.humidity;
-    let currentHumidity = document.querySelector("#humidity");
-    currentHumidity.innerHTML = apiHumidity;
-
-    let apiWind = Math.round(response.data.wind.speed * 3.6);
-    let currentWind = document.querySelector("#wind");
-    currentWind.innerHTML = apiWind;
-  }
   axios.get(apiURL).then(provideWeather);
 }
 
@@ -61,29 +74,6 @@ function handlePosition(position) {
   let lon = position.coords.longitude;
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-  function provideWeather(response) {
-    let location = response.data.name;
-    let cityName = document.querySelector("#city-name");
-    cityName.innerHTML = location;
-
-    let temperature = Math.round(response.data.main.temp);
-    let currentTemperature = document.querySelector("#current-temperature");
-    currentTemperature.innerHTML = temperature;
-
-    let apiWeatherDescription = response.data.weather[0].description;
-    let currentWeatherDescription = document.querySelector(
-      "#current-weather-description"
-    );
-    currentWeatherDescription.innerHTML = apiWeatherDescription;
-
-    let apiHumidity = response.data.main.humidity;
-    let currentHumidity = document.querySelector("#humidity");
-    currentHumidity.innerHTML = apiHumidity;
-
-    let apiWind = Math.round(response.data.wind.speed * 3.6);
-    let currentWind = document.querySelector("#wind");
-    currentWind.innerHTML = apiWind;
-  }
   axios.get(apiURL).then(provideWeather);
 }
 
