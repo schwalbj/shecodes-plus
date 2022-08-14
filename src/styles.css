@@ -1,0 +1,69 @@
+body {
+  background: linear-gradient(
+    109.6deg,
+    rgb(0, 0, 0) 11.2%,
+    rgb(11, 132, 145) 91.1%
+  );
+  min-height: 100vh;
+  background-color: black;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: #05282c;
+}
+
+form {
+  position: relative;
+}
+
+form .search-icon {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  color: #9ca3af;
+}
+
+.current-location-icon {
+  color: white;
+}
+
+.current-weather-icon {
+  max-width: 100%;
+}
+
+.forecast-icons {
+  width: 65%;
+  padding-top: 0.3rem;
+}
+
+.units {
+  position: relative;
+  top: -12px;
+  text-decoration: none;
+}
+
+.units .link-dark {
+  text-decoration: none;
+}
+
+.units .link-dark:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 992px) {
+  .forecast-icons {
+    width: 50%;
+  }
+}
