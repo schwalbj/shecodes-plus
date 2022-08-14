@@ -1,4 +1,4 @@
-// Display current date and Time (Feature 1)
+// Display current date and Time
 let now = new Date();
 let weekdays = [
   "Sunday",
@@ -17,25 +17,90 @@ let time = `${hours}:${minutes}`;
 let currentDayAndTime = document.querySelector("#weekday-and-time");
 currentDayAndTime.innerHTML = `${weekday} ${time}`;
 
-// Display city name after search
-function updateCity(event) {
+// Current Weather after search
+let apiKey = "814decb5bc7db2bf90165d67925d435d";
+
+function searchCity(event) {
   event.preventDefault();
-  let city = document.querySelector("#city-input");
-  let newCityName = document.querySelector("#city-name");
-  newCityName.innerHTML = `${city.value}`;
-  console.log(citySearch);
+  let cityInput = document.querySelector("#city-input").value;
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=${apiKey}`;
+
+  function provideWeather(response) {
+    let searchedCity = response.data.name;
+    let cityName = document.querySelector("#city-name");
+    cityName.innerHTML = searchedCity;
+
+    let temperature = Math.round(response.data.main.temp);
+    let currentTemperature = document.querySelector("#current-temperature");
+    currentTemperature.innerHTML = temperature;
+
+    let apiWeatherDescription = response.data.weather[0].description;
+    let currentWeatherDescription = document.querySelector(
+      "#current-weather-description"
+    );
+    currentWeatherDescription.innerHTML = apiWeatherDescription;
+
+    let apiHumidity = response.data.main.humidity;
+    let currentHumidity = document.querySelector("#humidity");
+    currentHumidity.innerHTML = apiHumidity;
+
+    let apiWind = Math.round(response.data.wind.speed * 3.6);
+    let currentWind = document.querySelector("#wind");
+    currentWind.innerHTML = apiWind;
+  }
+  axios.get(apiURL).then(provideWeather);
 }
 
-let citySearch = document.querySelector("#city-search-form");
-citySearch.addEventListener("submit", updateCity);
+let showSearchedWeather = document.querySelector("#city-search-form");
+showSearchedWeather.addEventListener("submit", searchCity);
+
+// Current Weather by Geolocation
+
+function handlePosition(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+
+  function provideWeather(response) {
+    let location = response.data.name;
+    let cityName = document.querySelector("#city-name");
+    cityName.innerHTML = location;
+
+    let temperature = Math.round(response.data.main.temp);
+    let currentTemperature = document.querySelector("#current-temperature");
+    currentTemperature.innerHTML = temperature;
+
+    let apiWeatherDescription = response.data.weather[0].description;
+    let currentWeatherDescription = document.querySelector(
+      "#current-weather-description"
+    );
+    currentWeatherDescription.innerHTML = apiWeatherDescription;
+
+    let apiHumidity = response.data.main.humidity;
+    let currentHumidity = document.querySelector("#humidity");
+    currentHumidity.innerHTML = apiHumidity;
+
+    let apiWind = Math.round(response.data.wind.speed * 3.6);
+    let currentWind = document.querySelector("#wind");
+    currentWind.innerHTML = apiWind;
+  }
+  axios.get(apiURL).then(provideWeather);
+}
+
+function showLocalWeather() {
+  navigator.geolocation.getCurrentPosition(handlePosition);
+}
+
+let geoButton = document.querySelector("#geo-button");
+geoButton.addEventListener("click", showLocalWeather);
 
 // Convert C to F
 function convertToF(event) {
   event.preventDefault();
-  let temperature = document.querySelector("#temperature");
+  // let temperature = document.querySelector("#temperature");
   let celsius = document.querySelector("#celsius");
   let fahrenheit = document.querySelector("#fahrenheit");
-  temperature.innerHTML = 73;
+  // temperature.innerHTML = 73;
   celsius.classList.add("text-black-50");
   celsius.classList.remove("pe-none");
   fahrenheit.classList.remove("text-black-50");
@@ -48,10 +113,10 @@ convertToFahrenheit.addEventListener("click", convertToF);
 // Convert back from F to C
 function convertToC(event) {
   event.preventDefault();
-  let temperature = document.querySelector("#temperature");
+  // let temperature = document.querySelector("#temperature");
   let celsius = document.querySelector("#celsius");
   let fahrenheit = document.querySelector("#fahrenheit");
-  temperature.innerHTML = 23;
+  // temperature.innerHTML = 23;
   celsius.classList.remove("text-black-50");
   celsius.classList.add("pe-none");
   fahrenheit.classList.add("text-black-50");

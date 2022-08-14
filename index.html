@@ -31,14 +31,15 @@
       sizes="16x16"
       href="favicon/favicon-16x16.png"
     />
-    <link rel="manifest" href="favicon/site.webmanifest" />
     <link
       rel="mask-icon"
       href="favicon/safari-pinned-tab.svg"
       color="#5bbad5"
     />
     <meta name="msapplication-TileColor" content="#da532c" />
+
     <meta name="theme-color" content="#ffffff" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>Weather App</title>
   </head>
   <body>
@@ -58,7 +59,7 @@
                       <input
                         type="search"
                         class="form-control"
-                        autofocus="on"
+                        autocomplete="off"
                         id="city-input"
                         placeholder="City"
                       />
@@ -68,7 +69,11 @@
                     <br />
                   </div>
                   <div class="col-2 col-lg-1 text-end">
-                    <button type="button" class="btn btn-secondary btn">
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn"
+                      id="geo-button"
+                    >
                       <i class="fa-solid fa-location-dot current-location-icon">
                       </i>
                     </button>
@@ -79,15 +84,19 @@
                   <div class="col-6 col-lg-12">
                     <p>
                       <span id="weekday-and-time"></span><br />
-                      Sunny
+                      <span
+                        class="text-capitalize"
+                        id="current-weather-description"
+                        >Sunny</span
+                      >
                     </p>
                   </div>
 
                   <div class="col-6 text-end col-lg-12 text-lg-start">
                     <p>
-                      Precipitation: 14% <br />
-                      Humidity: 67% <br />
-                      Wind: 5 km/h <br />
+                      Precipitation: <span id="precipitation">14</span>% <br />
+                      Humidity: <span id="humidity">67</span>% <br />
+                      Wind: <span id="wind">5</span> km/h <br />
                     </p>
                   </div>
                 </div>
@@ -100,7 +109,7 @@
                   alt="sun"
                 />
                 <h2 class="fs-1">
-                  <span id="temperature">23</span>°
+                  <span id="current-temperature">23</span>°
                   <span class="units fs-6">
                     <a href="#" class="link-dark active pe-none" id="celsius"
                       >C</a
