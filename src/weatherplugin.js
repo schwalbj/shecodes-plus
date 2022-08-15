@@ -1,21 +1,23 @@
 // Display current date and Time
-let now = new Date();
-let weekdays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let weekday = weekdays[now.getDay()];
-let hours = String(now.getHours()).padStart(2, "0");
-let minutes = String(now.getMinutes()).padStart(2, "0");
-let time = `${hours}:${minutes}`;
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let weekday = weekdays[now.getDay()];
+  let hours = String(now.getHours()).padStart(2, "0");
+  let minutes = String(now.getMinutes()).padStart(2, "0");
+  let time = `${hours}:${minutes}`;
 
-let currentDayAndTime = document.querySelector("#weekday-and-time");
-currentDayAndTime.innerHTML = `${weekday} ${time}`;
+  let currentDayAndTime = document.querySelector("#weekday-and-time");
+  currentDayAndTime.innerHTML = `Last updated: ${weekday} ${time}`;
+}
 
 // API Key + Display Weather Info
 
@@ -43,12 +45,17 @@ function provideWeather(response) {
   let apiWind = Math.round(response.data.wind.speed * 3.6);
   let currentWind = document.querySelector("#wind");
   currentWind.innerHTML = apiWind;
+
+  document.querySelector("#date-and-time").innerHTML = formatDate(
+    (response.data.dt * 1000
+  );
 }
 
 // Current Weather in Frankfurt (Default)
 
 function displayFrankfurtWeather() {
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=&Frankfurt&units=metric&appid=${apiKey}`;
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=Frankfurt&units=metric&appid=${apiKey}`;
+  console.log(apiURL);
   axios.get(apiURL).then(provideWeather);
 }
 
