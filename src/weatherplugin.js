@@ -47,7 +47,7 @@ function provideWeather(response) {
   currentWind.innerHTML = apiWind;
 
   document.querySelector("#date-and-time").innerHTML = formatDate(
-    (response.data.dt * 1000
+    response.data.dt * 1000
   );
 }
 
