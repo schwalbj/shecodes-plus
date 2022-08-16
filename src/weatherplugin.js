@@ -16,7 +16,7 @@ function formatDate(timestamp) {
   let time = `${hours}:${minutes}`;
 
   let currentDayAndTime = document.querySelector("#weekday-and-time");
-  currentDayAndTime.innerHTML = `Last updated: ${weekday} ${time}`;
+  currentDayAndTime.innerHTML = `Last Updated: ${weekday} ${time}`;
 }
 
 // API Key + Display Weather Info
@@ -46,9 +46,7 @@ function provideWeather(response) {
   let currentWind = document.querySelector("#wind");
   currentWind.innerHTML = apiWind;
 
-  document.querySelector("#date-and-time").innerHTML = formatDate(
-    response.data.dt * 1000
-  );
+  formatDate(response.data.dt * 1000);
 }
 
 // Current Weather in Frankfurt (Default)
