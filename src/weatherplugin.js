@@ -85,6 +85,8 @@ function provideWeather(response) {
   let currentTemperature = document.querySelector("#current-temperature");
   currentTemperature.innerHTML = temperature;
 
+  celsiusTemperature = response.data.main.temp;
+
   let apiWeatherDescription = response.data.weather[0].description;
   let currentWeatherDescription = document.querySelector(
     "#current-weather-description"
@@ -147,28 +149,31 @@ let geoButton = document.querySelector("#geo-button");
 geoButton.addEventListener("click", showLocalWeather);
 
 // Convert C to F
+
 function convertToF(event) {
   event.preventDefault();
-  // let temperature = document.querySelector("#temperature");
+  let temperatureElement = document.querySelector("#current-temperature");
   let celsius = document.querySelector("#celsius");
   let fahrenheit = document.querySelector("#fahrenheit");
-  // temperature.innerHTML = 73;
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
   celsius.classList.add("text-black-50");
   celsius.classList.remove("pe-none");
   fahrenheit.classList.remove("text-black-50");
   fahrenheit.classList.add("pe-none");
 }
 
+let celsiusTemperature = null;
 let convertToFahrenheit = document.querySelector("#fahrenheit");
 convertToFahrenheit.addEventListener("click", convertToF);
 
 // Convert back from F to C
 function convertToC(event) {
   event.preventDefault();
-  // let temperature = document.querySelector("#temperature");
+  let temperatureElement = document.querySelector("#current-temperature");
   let celsius = document.querySelector("#celsius");
   let fahrenheit = document.querySelector("#fahrenheit");
-  // temperature.innerHTML = 23;
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
   celsius.classList.remove("text-black-50");
   celsius.classList.add("pe-none");
   fahrenheit.classList.add("text-black-50");
