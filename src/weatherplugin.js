@@ -35,26 +35,35 @@ function displayCurrentIcon(icon) {
       document.getElementById("current-weather-icon").src = "images/02na.gif";
       break;
     case "03d":
+    case "03n":
       document.getElementById("current-weather-icon").src =
         "images/03da_04da.gif";
       break;
     case "04d":
+    case "04n":
       document.getElementById("current-weather-icon").src =
         "images/03da_04da.gif";
       break;
     case "09d":
+    case "09n":
       document.getElementById("current-weather-icon").src = "images/09da.gif";
       break;
     case "10d":
       document.getElementById("current-weather-icon").src = "images/10da.gif";
       break;
+    case "10n":
+      document.getElementById("current-weather-icon").src = "images/10na.gif";
+      break;
     case "11d":
+    case "11n":
       document.getElementById("current-weather-icon").src = "images/11da.gif";
       break;
     case "13d":
+    case "13n":
       document.getElementById("current-weather-icon").src = "images/13da.gif";
       break;
     case "50d":
+    case "50n":
       document.getElementById("current-weather-icon").src = "images/50da.gif";
       break;
     default:
