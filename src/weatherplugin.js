@@ -25,11 +25,14 @@ function displayCurrentIcon(icon) {
     case "01d":
       document.getElementById("current-weather-icon").src = "images/01da.gif";
       break;
-    case "01d":
-      document.getElementById("current-weather-icon").src = "images/01da.gif";
+    case "01n":
+      document.getElementById("current-weather-icon").src = "images/01na.gif";
       break;
     case "02d":
       document.getElementById("current-weather-icon").src = "images/02da.gif";
+      break;
+    case "02n":
+      document.getElementById("current-weather-icon").src = "images/02na.gif";
       break;
     case "03d":
       document.getElementById("current-weather-icon").src =
