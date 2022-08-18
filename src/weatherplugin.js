@@ -16,7 +16,7 @@ function formatDate(timestamp) {
   let time = `${hours}:${minutes}`;
 
   let currentDayAndTime = document.querySelector("#weekday-and-time");
-  currentDayAndTime.innerHTML = `Last Updated: ${weekday} ${time}`;
+  currentDayAndTime.innerHTML = `Last Updated ${weekday} ${time}`;
 }
 
 // API Key + Display Weather Info
