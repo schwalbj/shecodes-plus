@@ -46,6 +46,10 @@ function provideWeather(response) {
   let currentWind = document.querySelector("#wind");
   currentWind.innerHTML = apiWind;
 
+  if (apiWeatherDescription === "clear sky") {
+  document.getElementsByClassName("current-weather-icon").src = "images/output-onlinegiftools.gif";
+  }
+
   formatDate(response.data.dt * 1000);
 }
 
