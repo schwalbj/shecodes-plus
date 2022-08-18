@@ -44,6 +44,7 @@ function displayCurrentIcon(icon) {
       break;
     case "10d":
       document.getElementById("current-weather-icon").src = "images/10da.gif";
+      break;
     case "11d":
       document.getElementById("current-weather-icon").src = "images/11da.gif";
       break;
