@@ -19,6 +19,46 @@ function formatDate(timestamp) {
   currentDayAndTime.innerHTML = `Last Updated ${weekday} ${time}`;
 }
 
+// Icons Switch
+function displayCurrentIcon(icon) {
+  switch (icon) {
+    case "01d":
+      document.getElementById("current-weather-icon").src = "images/01da.gif";
+      break;
+    case "01d":
+      document.getElementById("current-weather-icon").src = "images/01da.gif";
+      break;
+    case "02d":
+      document.getElementById("current-weather-icon").src = "images/02da.gif";
+      break;
+    case "03d":
+      document.getElementById("current-weather-icon").src =
+        "images/03da_04da.gif";
+      break;
+    case "04d":
+      document.getElementById("current-weather-icon").src =
+        "images/03da_04da.gif";
+      break;
+    case "09d":
+      document.getElementById("current-weather-icon").src = "images/09da.gif";
+      break;
+    case "10d":
+      document.getElementById("current-weather-icon").src = "images/10da.gif";
+    case "11d":
+      document.getElementById("current-weather-icon").src = "images/11da.gif";
+      break;
+    case "13d":
+      document.getElementById("current-weather-icon").src = "images/13da.gif";
+      break;
+    case "50d":
+      document.getElementById("current-weather-icon").src = "images/50da.gif";
+      break;
+    default:
+      document.getElementById("current-weather-icon").src =
+        "images/03da_04da.gif";
+  }
+}
+
 // API Key + Display Weather Info
 
 let apiKey = "814decb5bc7db2bf90165d67925d435d";
@@ -46,9 +86,9 @@ function provideWeather(response) {
   let currentWind = document.querySelector("#wind");
   currentWind.innerHTML = apiWind;
 
-  if (apiWeatherDescription === "clear sky") {
-  document.getElementsByClassName("current-weather-icon").src = "images/output-onlinegiftools.gif";
-  }
+  let apiWeatherIcon = response.data.weather[0].icon;
+  displayCurrentIcon(apiWeatherIcon);
+  document.getElementById("current-weather-icon").alt = apiWeatherDescription;
 
   formatDate(response.data.dt * 1000);
 }
