@@ -30,54 +30,91 @@ function formatDay(timestamp) {
 
 // Switch for animated Icons (Current Weather)
 function displayCurrentIcon(icon) {
+  let body = document.querySelector("body");
+  let currentWeatherIcon = document.getElementById("current-weather-icon");
   switch (icon) {
     case "01d":
-      document.getElementById("current-weather-icon").src = "images/01da.gif";
+      currentWeatherIcon.src = "images/01da.gif";
+      currentWeatherIcon.classList.remove("icons-icy");
+      currentWeatherIcon.classList.add("icons-pink");
+      body.classList.add("background-sunny");
       break;
     case "01n":
-      document.getElementById("current-weather-icon").src = "images/01na.gif";
+      currentWeatherIcon.src = "images/01na.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     case "02d":
-      document.getElementById("current-weather-icon").src = "images/02da.gif";
+      currentWeatherIcon.src = "images/02da.gif";
+      currentWeatherIcon.classList.add("icons-pink");
+      body.removeAttribute("class");
+      body.classList.add("background-sunny");
       break;
     case "02n":
-      document.getElementById("current-weather-icon").src = "images/02na.gif";
+      currentWeatherIcon.src = "images/02na.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     case "03d":
     case "03n":
-      document.getElementById("current-weather-icon").src =
-        "images/03da_04da.gif";
+      currentWeatherIcon.src = "images/03da_04da.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     case "04d":
     case "04n":
-      document.getElementById("current-weather-icon").src =
-        "images/03da_04da.gif";
+      currentWeatherIcon.src = "images/03da_04da.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     case "09d":
     case "09n":
-      document.getElementById("current-weather-icon").src = "images/09da.gif";
+      currentWeatherIcon.src = "images/09da.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     case "10d":
-      document.getElementById("current-weather-icon").src = "images/10da.gif";
+      currentWeatherIcon.src = "images/10da.gif";
+      currentWeatherIcon.classList.add("icons-pink");
+      body.removeAttribute("class");
+      body.classList.add("background-pink");
       break;
     case "10n":
-      document.getElementById("current-weather-icon").src = "images/10na.gif";
+      currentWeatherIcon.src = "images/10na.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     case "11d":
     case "11n":
-      document.getElementById("current-weather-icon").src = "images/11da.gif";
+      currentWeatherIcon.src = "images/11da.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     case "13d":
     case "13n":
-      document.getElementById("current-weather-icon").src = "images/13da.gif";
+      currentWeatherIcon.src = "images/13da.gif";
+      currentWeatherIcon.classList.remove("icons-pink");
+      currentWeatherIcon.classList.add("icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-icy");
       break;
     case "50d":
     case "50n":
-      document.getElementById("current-weather-icon").src = "images/50da.gif";
+      currentWeatherIcon.src = "images/50da.gif";
+      currentWeatherIcon.classList.remove("icons-pink", "icons-icy");
+      body.removeAttribute("class");
+      body.classList.add("background-dark");
       break;
     default:
-      document.getElementById("current-weather-icon").src =
-        "images/03da_04da.gif";
+      currentWeatherIcon.src = "images/03da_04da.gif";
+      body.classList.add("background-pink");
   }
 }
 
@@ -131,11 +168,11 @@ function displayForecastIcon(icon) {
   }
 }
 
-// Display Weather Forecast + Current Time
+// Display Weather Forecast + Current Local Time
 function displayForecast(response) {
   let apiPrecipitation = response.data.daily[0].pop;
   let precipitationElement = document.querySelector("#precipitation");
-  precipitationElement.innerHTML = apiPrecipitation * 100;
+  precipitationElement.innerHTML = Math.round(apiPrecipitation * 100);
 
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
@@ -152,7 +189,7 @@ function displayForecast(response) {
                   src=${displayForecastIcon(forecastDay.weather[0].icon)}
                   alt="${forecastDay.weather[0].description}"
                 />
-                <p class="mt-2">
+                <p class="mt-2 max-items">
                   <span class="max-temp">↑${Math.round(
                     forecastDay.temp.max
                   )}°</span>

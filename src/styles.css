@@ -1,12 +1,7 @@
 body {
-  background: linear-gradient(
-    109.6deg,
-    rgb(0, 0, 0) 11.2%,
-    rgb(11, 132, 145) 91.1%
-  );
   min-height: 100vh;
-  background-color: black;
 }
+
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
@@ -35,6 +30,39 @@ form .search-icon {
   color: #9ca3af;
 }
 
+.background-dark {
+  background: linear-gradient(
+    109.6deg,
+    rgb(0, 0, 0) 11.2%,
+    rgb(11, 132, 145) 91.1%
+  );
+
+  background-color: black;
+}
+
+.background-icy {
+  background: linear-gradient(to bottom, #fff1eb 0%, #ace0f9 100%);
+  background-color: #fff1eb;
+}
+
+.background-sunny {
+  background: linear-gradient(
+    109.8deg,
+    rgb(238, 9, 121) 42.8%,
+    rgb(255, 106, 0) 83.3%
+  );
+  background-color: rgb(238, 9, 121) 42.8%;
+}
+
+.icons-icy {
+  filter: invert(0%) sepia() saturate(100%) hue-rotate(160deg);
+}
+
+.icons-pink {
+  filter: invert(0%) saturate(1000%) hue-rotate(175deg);
+  /* filter: invert(100%) sepia() saturate(10000%) hue-rotate(0deg); */
+}
+
 .current-location-icon {
   color: white;
 }
@@ -46,6 +74,7 @@ form .search-icon {
 .forecast-icons {
   width: 65%;
   padding-top: 0.3rem;
+  filter: brightness(0) saturate(100%);
 }
 
 .units {
@@ -60,6 +89,10 @@ form .search-icon {
 
 .units .link-dark:hover {
   text-decoration: underline;
+}
+
+.max-items {
+  font-size: 0.8rem;
 }
 
 /* .todays-forecast {
