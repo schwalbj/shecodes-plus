@@ -60,7 +60,6 @@ form .search-icon {
 
 .icons-pink {
   filter: invert(0%) saturate(1000%) hue-rotate(175deg);
-  /* filter: invert(100%) sepia() saturate(10000%) hue-rotate(0deg); */
 }
 
 .current-location-icon {
@@ -89,10 +88,6 @@ form .search-icon {
 
 .units .link-dark:hover {
   text-decoration: underline;
-}
-
-.max-items {
-  font-size: 0.8rem;
 }
 
 /* .todays-forecast {
