@@ -19,7 +19,16 @@ function formatDate(timestamp) {
   currentDayAndTime.innerHTML = `Last Updated ${weekday} ${time}`;
 }
 
-// Icons Switch
+// Display Weekdays for the Forecast
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+// Switch for animated Icons (Current Weather)
 function displayCurrentIcon(icon) {
   switch (icon) {
     case "01d":
@@ -72,6 +81,92 @@ function displayCurrentIcon(icon) {
   }
 }
 
+// Switch for forecast icons (not animated)
+function displayForecastIcon(icon) {
+  switch (icon) {
+    case "01d":
+      return "images/01d.png";
+      break;
+    case "01n":
+      return "images/01d.png";
+      break;
+    case "02d":
+      return "images/02d.png";
+      break;
+    case "02n":
+      return "images/01d.png";
+      break;
+    case "03d":
+    case "03n":
+      return "images/03d_04d.png";
+      break;
+    case "04d":
+    case "04n":
+      return "images/03d_04d.png";
+      break;
+    case "09d":
+    case "09n":
+      return "images/09d.png";
+      break;
+    case "10d":
+      return "images/10d.png";
+      break;
+    case "10n":
+      return "images/01d.png";
+      break;
+    case "11d":
+    case "11n":
+      return "images/11d.png";
+      break;
+    case "13d":
+    case "13n":
+      return "images/13d.png";
+      break;
+    case "50d":
+    case "50n":
+      return "images/50d.png";
+      break;
+    default:
+      return "images/03d_04d.png";
+  }
+}
+
+// Display Weather Forecast
+function displayForecast(response) {
+  let apiPrecipitation = response.data.daily[0].pop;
+  let precipitationElement = document.querySelector("#precipitation");
+  precipitationElement.innerHTML = apiPrecipitation * 100;
+
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = "";
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+    <div class="col-4 col-md-2 pt-3">
+                <h4>${formatDay(forecastDay.dt)}</h4>
+                <img
+                  class="forecast-icons img-fluid"
+                  src=${displayForecastIcon(forecastDay.weather[0].icon)}
+                  alt="${forecastDay.weather[0].description}"
+                />
+                <p class="mt-2">
+                  <span class="max-temp">↑${Math.round(
+                    forecastDay.temp.max
+                  )}°</span>
+                  <span class="min-temp text-black-50">↓${Math.round(
+                    forecastDay.temp.min
+                  )}°</span>
+                </p>
+              </div>
+              `;
+    }
+  });
+  forecastElement.innerHTML = forecastHTML;
+}
+
 // API Key + Display Weather Info
 
 let apiKey = "814decb5bc7db2bf90165d67925d435d";
@@ -101,11 +196,12 @@ function provideWeather(response) {
   let currentWind = document.querySelector("#wind");
   currentWind.innerHTML = apiWind;
 
-  let apiWeatherIcon = response.data.weather[0].icon;
-  displayCurrentIcon(apiWeatherIcon);
+  let apiCurrentWeatherIcon = response.data.weather[0].icon;
+  displayCurrentIcon(apiCurrentWeatherIcon);
   document.getElementById("current-weather-icon").alt = apiWeatherDescription;
 
   formatDate(response.data.dt * 1000);
+  getForecast(response.data.coord);
 }
 
 // Current Weather in Frankfurt (Default)
@@ -117,6 +213,14 @@ function displayFrankfurtWeather() {
 }
 
 displayFrankfurtWeather();
+
+// Get Forecast Data
+
+function getForecast(coordinates) {
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&units=metric`;
+  console.log(apiURL);
+  axios.get(apiURL).then(displayForecast);
+}
 
 // Current Weather after search
 
