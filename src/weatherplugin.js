@@ -10,13 +10,13 @@ function formatDate(timestamp) {
     "Friday",
     "Saturday",
   ];
-  let weekday = weekdays[now.getDay()];
-  let hours = String(now.getHours()).padStart(2, "0");
-  let minutes = String(now.getMinutes()).padStart(2, "0");
+  let weekday = weekdays[now.getUTCDay()];
+  let hours = String(now.getUTCHours()).padStart(2, "0");
+  let minutes = String(now.getUTCMinutes()).padStart(2, "0");
   let time = `${hours}:${minutes}`;
 
   let currentDayAndTime = document.querySelector("#weekday-and-time");
-  currentDayAndTime.innerHTML = `Last Updated ${weekday} ${time}`;
+  currentDayAndTime.innerHTML = `${weekday} ${time}`;
 }
 
 // Display Weekdays for the Forecast
@@ -131,7 +131,7 @@ function displayForecastIcon(icon) {
   }
 }
 
-// Display Weather Forecast
+// Display Weather Forecast + Current Time
 function displayForecast(response) {
   let apiPrecipitation = response.data.daily[0].pop;
   let precipitationElement = document.querySelector("#precipitation");
@@ -165,6 +165,7 @@ function displayForecast(response) {
     }
   });
   forecastElement.innerHTML = forecastHTML;
+  formatDate((response.data.current.dt + response.data.timezone_offset) * 1000);
 }
 
 // API Key + Display Weather Info
@@ -200,7 +201,6 @@ function provideWeather(response) {
   displayCurrentIcon(apiCurrentWeatherIcon);
   document.getElementById("current-weather-icon").alt = apiWeatherDescription;
 
-  formatDate(response.data.dt * 1000);
   getForecast(response.data.coord);
 }
 
